@@ -5,6 +5,7 @@
         "jquery": "~1.10.2",
         "modernizr": "~2.6.2",
         "underscore": "~1.5.1",
-        "backbone": "~1.0.0"
+        "backbone": "~1.0.0",
+        "lesshat": "~1.1.2"
     }
 }
