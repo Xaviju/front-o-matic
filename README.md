@@ -1,17 +1,23 @@
-# generator-front-o-matic [![Build Status](https://secure.travis-ci.org/xaviju/generator-front-o-matic.png?branch=master)](https://travis-ci.org/xaviju/generator-front-o-matic)
+# generator-front-o-matic
 
-A generator for [Yeoman](http://yeoman.io).
+A generator for [Yeoman](http://yeoman.io). Based on *Kaleidos* front-end structure and workflow.
+Current version alpha 0.0.1
+
+### Current status
+
+So far the project is in its early stages, and may be used following this rules:
+
+- Generator can be installed and tested. See later.
+- No dependencies by default in bower.
+- Grunt file is in early alpha, should be checked for improvements.
+- No deployment task for development or production prepared.
 
 
 ## Getting Started
 
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
+### How to install?
 
 ![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
 
 Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
 
@@ -19,9 +25,7 @@ Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](
 $ npm install -g yo
 ```
 
-### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
+### Installing front-o-matic generator
 
 To install generator-front-o-matic from npm, run:
 
@@ -33,6 +37,20 @@ Finally, initiate the generator:
 
 ```
 $ yo front-o-matic
+```
+There will be just two simple questions.
+
+### Installing front-o-matic generator
+
+Build the basic files for development
+
+```
+$ grunt
+```
+Run the server task, it will load a local server for your files and watch the changes to reaload
+
+```
+$ grunt
 ```
 
 ### Getting To Know Yeoman
