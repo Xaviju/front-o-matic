@@ -5,10 +5,15 @@ Current version alpha 0.0.1
 
 ### Current status
 
+Front-o-matic includes so far:
+
+- HTML > HTML5 boilerplate, HTML5Shiv
+- CSS > LESS, LESSHat
+- JAVASCRIPT > jQuery, underscore, BackboneJs
+
 So far the project is in its early stages, and may be used following this rules:
 
 - Generator can be installed and tested. See later.
-- No dependencies by default in bower.
 - Grunt file is in early alpha, should be checked for improvements.
 - No deployment task for development or production prepared.
 
