@@ -1,7 +1,8 @@
 # generator-front-o-matic
 
 A generator for [Yeoman](http://yeoman.io). Based on *Kaleidos* front-end structure and workflow.
-Current version alpha 0.0.1
+Current version alpha 0.0.2
+Upadate: It's working and have a test server already!
 
 ### Current status
 
@@ -15,7 +16,7 @@ So far the project is in its early stages, and may be used following this rules:
 
 - Generator can be installed and tested. See later.
 - Grunt file is in early alpha, should be checked for improvements.
-- No deployment task for development or production prepared.
+- No deployment task for development or production prepared. Hard-coded so far.
 
 
 ## Getting Started
