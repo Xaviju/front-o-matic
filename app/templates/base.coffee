@@ -1,21 +1,48 @@
 class View extends Backbone.View
 class Model extends Backbone.Model
+class Router extends Backbone.Router
 @View = View
 @Model = Model
+@Router = Router
 
-#Add a data-view attribute to your pages body an it will create and initialize a view for it (optional)
-$ ->
-    view = $("body").data('view')
-    if (view)
-        viewCls = app.views[view]
-        if (viewCls)
-            app.main = new viewCls()
+#global <%= _.camelize(appName) %>, $
+window.<%= _.camelize(appName) %> =
+    Models: {}
+    Collections: {}
+    Views: {}
+    Routers: {}
+    init:->
+        'use strict'
+        console.log 'Hello from Backbone!'
 
-#Change 'App' for your application name (optional)
-class App extends View
-    el: $('body')
-    models: {}
-    collections: {}
-    views: {}
+<%= _.camelize(appName) %>.init();
 
-@app = new App()
+##########################################################
+# MAIN VIEW
+##########################################################
+
+class MainView extends View
+    el: 'body'
+
+    initialize: ->
+        console.log 'Hello from Main'
+
+##########################################################
+# EXAMPLE SUB VIEW
+##########################################################     
+
+#class <%= _.camelize(appName) %>.Views.{Name}View extends View
+    
+
+######################################################
+# EXAMPLE SUB MODEL
+######################################################
+
+# class <%= _.camelize(appName) %>.Models.{Name}Model extends Model
+
+
+######################################################
+# EXAMPLE SUB ROUTER
+######################################################
+
+#class <%= _.camelize(appName) %>.Routers.{Name}Router extends Router

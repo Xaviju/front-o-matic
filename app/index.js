@@ -41,7 +41,12 @@ FrontOMaticGenerator.prototype.askFor = function askFor() {
                 name: 'coffeeScript',
                 value: 'coffeeScript',
                 checked: true
-            }]
+            }, {
+              name: 'RequireJS',
+              value: 'includeRequireJS',
+              checked: true
+            },
+            ]
         }
     ];
 
@@ -55,6 +60,7 @@ FrontOMaticGenerator.prototype.askFor = function askFor() {
         this.appName = hasFeature('appName');
         this.less = hasFeature('less');
         this.coffeeScript = hasFeature('coffeeScript');
+        this.requireJS = hasFeature('includeRequireJS');
 
         cb();
     }.bind(this));
@@ -65,9 +71,6 @@ FrontOMaticGenerator.prototype.projectfiles = function projectfiles() {
     this.copy('jshintrc', '.jshintrc');
 };
 
-FrontOMaticGenerator.prototype.gruntfile = function gruntfile() {
-    this.template('Gruntfile.js', 'Gruntfile.js');
-};
 
 FrontOMaticGenerator.prototype.packageJSON = function packageJSON() {
     this.template('_package.json', 'package.json');
@@ -89,6 +92,10 @@ FrontOMaticGenerator.prototype.jshint = function jshint() {
 
 FrontOMaticGenerator.prototype.editorConfig = function editorConfig() {
     this.copy('editorconfig', '.editorconfig');
+};
+
+FrontOMaticGenerator.prototype.gruntfile = function gruntfile() {
+    this.template('Gruntfile.js', 'Gruntfile.js');
 };
 
 FrontOMaticGenerator.prototype.h5bp = function h5bp() {
@@ -124,7 +131,7 @@ FrontOMaticGenerator.prototype.coffee = function coffee() {
     }
 };
 
-FrontOMaticGenerator.prototype.app = function app() {
+FrontOMaticGenerator.prototype.appDir = function appDir() {
 
     this.mkdir('app');
 
