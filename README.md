@@ -2,7 +2,7 @@
 
 A generator for [Yeoman](http://yeoman.io). Based on *Kaleidos* front-end structure and workflow.
 Current version alpha 0.0.2
-Upadate: It's working and have a test server already!
+Update: It's working and have a test server already!
 
 ### Current status
 
