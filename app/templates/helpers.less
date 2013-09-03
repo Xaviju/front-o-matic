@@ -143,61 +143,6 @@
         position: absolute;
         top: 10px;
         right: 10px;
-        color: @darkblue;
+        color: @black;
     }
-}
-
-
-/* ==================================================
- *  STATUS COLORS
- * ================================================== */
-
-.status-list{
-    li{
-        &.cancelled {
-            background: @cancelled;
-        }
-        &.confirmation-pending {
-            background: @confirmation-pending;
-        }
-        &.draft {
-            background: @draft;
-        }
-        &.sent {
-            background: @sent;
-        }
-        &.send-pending {
-            background: @send-pending;
-        }
-        &.budget {
-            background: @budget;
-        }
-        &.issue {
-            background: @issue;
-        }
-    }
-}
-
-/* Errors */
-.checksley-error-list,
-.parsley-error-list{
-    clear: both;
-    background: @error;
-    margin:0;
-    padding: 10px 0;
-    width: 100%;
-    list-style: none;
-    margin-top: 15px;
-    .top_arrow_box(@error; 50%; 5px; none; 0);
-    position: relative;
-    li{
-        text-align: center;
-        color: @black !important;
-        font-family: 'RobotoCondensed';
-    }
-}
-
-.checksley-error,
-.parsley-error {
-    border-color: @error;
 }

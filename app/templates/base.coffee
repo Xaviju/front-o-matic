@@ -15,7 +15,7 @@ window.<%= _.camelize(appName) %> =
         'use strict'
         console.log 'Hello from Backbone!'
 
-<%= _.camelize(appName) %>.init();
+<%= _.camelize(appName) %>.init()
 
 ##########################################################
 # MAIN VIEW
@@ -29,17 +29,15 @@ class MainView extends View
 
 ##########################################################
 # EXAMPLE SUB VIEW
-##########################################################     
+##########################################################
 
 #class <%= _.camelize(appName) %>.Views.{Name}View extends View
-    
 
 ######################################################
 # EXAMPLE SUB MODEL
 ######################################################
 
 # class <%= _.camelize(appName) %>.Models.{Name}Model extends Model
-
 
 ######################################################
 # EXAMPLE SUB ROUTER

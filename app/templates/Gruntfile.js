@@ -6,16 +6,6 @@ module.exports = function (grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.initConfig({
-        coffeelint: {
-            app: ['app/scripts/*.coffee', 'app/scripts/libs/*.coffee']
-        },
-        coffee: {
-            compile: {
-                files: {
-                    'dist/scripts/script.js': ['app/scripts/*.coffee', 'app/scripts/libs/*.coffee'] // compile and concat into single file
-                }
-            },
-        },
         clean: {
             dist: {
                 files: [{
@@ -29,6 +19,49 @@ module.exports = function (grunt) {
             },
             server: '.tmp'
         },
+        copy: {
+            dist: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: 'app/',
+                    dest: 'dist/',
+                    src: [
+                        '*.{ico,txt}',
+                        '.htaccess',
+                        'images/{,*/}*.{webp,gif}'
+                    ]
+                }]
+            }
+        },
+        htmlmin: {
+            options: {
+                collapseWhitespace: true,
+                removeComments: true,
+                removeEmptyAttributes: true
+            },
+
+            files: {
+                expand: true,
+                flatten: true,
+                src: ['app/*.html'],
+                dest: 'dist/'
+            }
+        },
+        less: {
+            development: {
+                options: {
+                    paths: ['app/styles'],
+                    //yuicompress: true, // Enable only when in production
+                    imports: {
+                        less: ['bower_components/lesshat/lesshat.less']
+                    }
+                },
+                files: {
+                    'dist/styles/style.css': 'app/styles/*.less'
+                }
+            }
+        },
         jshint: {
             options: {
                 jshintrc: '.jshintrc'
@@ -39,26 +72,20 @@ module.exports = function (grunt) {
                 'app/scripts/libs/*'
             ]
         },
-        copy: {
-            dist: {
-                files: [{
-                    expand: true,
-                    dot: true,
-                    cwd: 'app/',
-                    dest: 'dist/',
-                    src: [
-                        '*.{ico,txt,html}',
-                        '.htaccess',
-                        'images/{,*/}*.{webp,gif}'
-                    ]
-                }]
-            }
+        coffeelint: {
+            app: ['app/scripts/*.coffee', 'app/scripts/libs/*.coffee'],
+            options: {
+                indentation: { level: 'error', value: 4 }
+            },
+        },
+        coffee: {
+            compile: {
+                files: {
+                    'dist/scripts/script.js': ['app/scripts/*.coffee', 'app/scripts/libs/*.coffee'] // compile and concat into single file
+                }
+            },
         },
         uglify: {
-            options: {
-                // the banner is inserted at the top of the output
-                banner: '/*! <%= grunt.template.today("dd-mm-yyyy") %> */\n'
-            },
             dist: {
                 files: {
                     'dist/scripts/app.min.js': ['dist/scripts/script.js']
@@ -81,11 +108,15 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.loadNpmTasks('assemble-less');
+
     grunt.registerTask('default', [
         'jshint',
         'coffeelint',
         'clean:dist',
         'copy:dist',
+        'htmlmin',
+        'less',
         'connect:server',
         'minify'
     ]);

@@ -2,7 +2,7 @@
 # global require
 ##########################################################
 
-'use strict';
+'use strict'
 
 require.config({
     paths: {
@@ -21,8 +21,8 @@ require.config({
             exports: 'Backbone'
         }
     }
-});
+})
 
 require(['base', 'html5shiv', 'backbone'], (base, html5shiv, Backbone) ->
-    'use strict';
+    'use strict'
 )
