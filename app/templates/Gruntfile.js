@@ -6,27 +6,15 @@ module.exports = function (grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.initConfig({
-        coffee: {
-            dist: {
-                files: [{
-                    expand: true,
-                    src: '{,*/}*.coffee',
-                    dest: 'dist/scripts/',
-                    ext: '.js'
-                }]
-            },
+        coffeelint: {
+            app: ['app/scripts/*.coffee', 'app/scripts/libs/*.coffee']
         },
-        concat: {
-            options: {
-                // define a string to put between each file in the concatenated output
-                separator: ';'
+        coffee: {
+            compile: {
+                files: {
+                    'dist/scripts/script.js': ['app/scripts/*.coffee', 'app/scripts/libs/*.coffee'] // compile and concat into single file
+                }
             },
-            dist: {
-                // the files to concatenate
-                src: ['dist/**/*.js'],
-                // the location of the resulting JS file
-                dest: 'dist/scripts/main.js'
-            }
         },
         clean: {
             dist: {
@@ -73,7 +61,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'dist/main.min.js': ['<%= concat.dist.dest %>']
+                    'dist/scripts/app.min.js': ['dist/scripts/script.js']
                 }
             }
         },
@@ -91,40 +79,19 @@ module.exports = function (grunt) {
                 tasks: ['coffee:dist']
             },
         }
-        //watch: {
-            //coffee: {
-                //files: ['app/scripts/{,*/}*.coffee'],
-                //tasks: ['coffee:dist']
-            //},
-            //recess: {
-                //files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
-                //tasks: ['recess:dist']
-            //},
-            //livereload: {
-                //options: {
-                    //livereload: LIVERELOAD_PORT
-                //},
-                //files: [
-                    //'dist/*.html',
-                    //'{css,dist/styles/{,*/}*.css, dist/styles/{,*/}*.css',
-                    //'{js,dist/scripts/{,*/}*.js',
-                    //'dist/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-                //]
-            //}
-        //},
     });
 
     grunt.registerTask('default', [
         'jshint',
+        'coffeelint',
         'clean:dist',
         'copy:dist',
-        'coffee:dist',
         'connect:server',
         'minify'
     ]);
     
     grunt.registerTask('minify', [
-        'concat:dist',
+        'coffee:compile',
         'uglify:dist',
         'watch',
     ]);
