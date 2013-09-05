@@ -1,46 +1,47 @@
-class View extends Backbone.View
-class Model extends Backbone.Model
-class Router extends Backbone.Router
-@View = View
-@Model = Model
-@Router = Router
+#requirejs
+require.config
+    paths: {
+        jquery: 'libs/jquery',
+        underscore: 'libs/underscore',
+        backbone: 'libs/backbone'
+    },
+    shim: {
+        'underscore': ['jquery']
+        'backbone': ['jquery', 'underscore']
+    }
 
-#global <%= _.camelize(appName) %>, $
-window.<%= _.camelize(appName) %> =
-    Models: {}
-    Collections: {}
-    Views: {}
-    Routers: {}
-    init:->
-        'use strict'
-        console.log 'Hello from Backbone!'
+require(['jquery','underscore','backbone'], ->
 
-<%= _.camelize(appName) %>.init()
+    class Model extends Backbone.Model
+    class Collection extends Backbone.Collection
+    class View extends Backbone.View
+    class Router extends Backbone.Router
 
-##########################################################
-# MAIN VIEW
-##########################################################
+    @Model = Model
+    @Collection = Collection
+    @Router = Router
+    @View = View
 
-class MainView extends View
-    el: 'body'
+    class App extends View
+        el: $('body')
+        models: {}
+        collections: {}
+        views: {}
+        decorators: {}
+        # Private objects
+        _models: {}
+        _collections: {}
+        _views: {}
+        console.log 'backbone loaded'
 
-    initialize: ->
-        console.log 'Hello from Main'
+    class CommonView extends View
 
-##########################################################
-# EXAMPLE SUB VIEW
-##########################################################
+        el: $('body')
 
-#class <%= _.camelize(appName) %>.Views.{Name}View extends View
+        initialize: ->
+            console.log 'backbone loaded'
 
-######################################################
-# EXAMPLE SUB MODEL
-######################################################
+    @app = new App()
+    @commonView = new CommonView()
 
-# class <%= _.camelize(appName) %>.Models.{Name}Model extends Model
-
-######################################################
-# EXAMPLE SUB ROUTER
-######################################################
-
-#class <%= _.camelize(appName) %>.Routers.{Name}Router extends Router
+)

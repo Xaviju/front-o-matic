@@ -31,6 +31,14 @@ module.exports = function (grunt) {
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}'
                     ]
+                },
+                {
+                    expand: true,
+                    cwd: 'bower_components/',
+                    src: '{,*/}*.js',
+                    dest: 'dist/scripts/libs',
+                    flatten: true,
+                    filter: 'isFile'
                 }]
             }
         },
@@ -101,9 +109,28 @@ module.exports = function (grunt) {
             }
         },
         watch: {
+            gruntfile: {
+                files: 'Gruntfile.js',
+                tasks: ['jshint:all']
+            },
+            html: {
+                files: 'app/*.html',
+                tasks: ['htmlmin']
+            },
+            less: {
+                files: '**/*.less',
+                tasks: ['assemble-less'],
+                options: {
+                    livereload: true,
+                }
+            },
             coffee: {
                 files: ['app/scripts/{,*/}*.coffee'],
-                tasks: ['coffee:dist']
+                tasks: [
+                    'coffeelint',
+                    'coffee:compile',
+                    'uglify:dist'
+                ]
             },
         }
     });
@@ -120,7 +147,7 @@ module.exports = function (grunt) {
         'connect:server',
         'minify'
     ]);
-    
+
     grunt.registerTask('minify', [
         'coffee:compile',
         'uglify:dist',
