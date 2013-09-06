@@ -39,7 +39,7 @@ require(['jquery','underscore','backbone'], ->
         el: $('body')
 
         initialize: ->
-            console.log 'backbone loaded'
+            console.log 'Welcome to front-o-matic'
 
     @app = new App()
     @commonView = new CommonView()

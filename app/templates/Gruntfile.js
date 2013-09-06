@@ -42,6 +42,19 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        prettify: {
+            options: {
+                'indent': 4
+            },
+            // Prettify a directory of files
+            all: {
+                expand: true,
+                cwd: 'app',
+                ext: '.html',
+                src: ['*.html'],
+                dest: 'dist/'
+            }
+        },
         htmlmin: {
             options: {
                 collapseWhitespace: true,
@@ -52,9 +65,18 @@ module.exports = function (grunt) {
             files: {
                 expand: true,
                 flatten: true,
-                src: ['app/*.html'],
+                src: ['dist/*.html'],
                 dest: 'dist/'
             }
+        },
+        htmlhint: {
+            options: {
+                'tag-pair': true,
+                'attr-value-not-empty': true,
+                'head-script-disabled': true,
+                'img-alt-require': true
+            },
+            src: ['app/*.html']
         },
         less: {
             development: {
@@ -142,13 +164,21 @@ module.exports = function (grunt) {
         'coffeelint',
         'clean:dist',
         'copy:dist',
-        'htmlmin',
+        'htmlhint',
+        'prettify',
         'less',
         'connect:server',
         'minify'
     ]);
 
     grunt.registerTask('minify', [
+        'coffee:compile',
+        'uglify:dist',
+        'watch',
+    ]);
+
+    grunt.registerTask('development', [
+        'htmlmin',
         'coffee:compile',
         'uglify:dist',
         'watch',
