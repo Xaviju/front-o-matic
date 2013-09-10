@@ -137,11 +137,14 @@ module.exports = function (grunt) {
             },
             html: {
                 files: 'app/*.html',
-                tasks: ['htmlmin']
+                tasks: ['htmlhint','prettify'],
+                options: {
+                    livereload: true,
+                }
             },
             less: {
                 files: '**/*.less',
-                tasks: ['assemble-less'],
+                tasks: ['less'],
                 options: {
                     livereload: true,
                 }
