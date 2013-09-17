@@ -42,6 +42,16 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        imagemin: {
+            dynamic: {
+                files: [{
+                    expand: true,
+                    cwd: 'app/',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: 'dist/images/'
+                }]
+            }
+        },
         prettify: {
             options: {
                 'indent': 4
@@ -137,7 +147,7 @@ module.exports = function (grunt) {
             },
             html: {
                 files: 'app/*.html',
-                tasks: ['htmlhint','prettify'],
+                tasks: ['htmlhint', 'prettify'],
                 options: {
                     livereload: true,
                 }
@@ -167,6 +177,7 @@ module.exports = function (grunt) {
         'coffeelint',
         'clean:dist',
         'copy:dist',
+        'imagemin:dynamic',
         'htmlhint',
         'prettify',
         'less',
