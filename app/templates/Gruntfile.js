@@ -6,65 +6,77 @@ module.exports = function (grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.initConfig({
+        //Global directory configuration
+        // Src > input directory
+        // Dest > output directory
+        globalConfig: {
+            src: 'app',
+            dest: 'dist'
+        },
+        //Cleans output directory
         clean: {
             dist: {
                 files: [{
                     dot: true,
                     src: [
                         '.tmp',
-                        'dist/*',
-                        'dist/.git*'
+                        '<%= globalConfig.dest %>/*',
+                        '<%= globalConfig.dest %>/.git*'
                     ]
                 }]
             },
             server: '.tmp'
         },
+        //Copy from input to output static files
         copy: {
             dist: {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: 'app/',
-                    dest: 'dist/',
+                    cwd: '<%= globalConfig.src %>',
+                    dest: '<%= globalConfig.dest %>',
                     src: [
                         '*.{ico,txt}',
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}'
                     ]
                 },
+                //Copy from input to output JS plugins
                 {
                     expand: true,
                     cwd: 'bower_components/',
                     src: '{,*/}*.js',
-                    dest: 'dist/scripts/libs',
+                    dest: '<%= globalConfig.dest %>/scripts/libs',
                     flatten: true,
                     filter: 'isFile'
                 }]
             }
         },
+        //Minify images and copy to output
         imagemin: {
             dynamic: {
                 files: [{
                     expand: true,
-                    cwd: 'app/',
+                    cwd: '<%= globalConfig.src %>',
                     src: ['**/*.{png,jpg,gif}'],
-                    dest: 'dist/images/'
+                    dest: '<%= globalConfig.dest %>/images/'
                 }]
             }
         },
+        //Prettify html files and indents al files to 4 spaces
         prettify: {
             options: {
                 'indent': 4
             },
-            // Prettify a directory of files
             all: {
                 expand: true,
-                cwd: 'app',
+                cwd: '<%= globalConfig.src %>',
                 ext: '.html',
                 src: ['*.html'],
-                dest: 'dist/'
+                dest: '<%= globalConfig.dest %>/'
             }
         },
+        //Minify html and reduce unused data
         htmlmin: {
             options: {
                 collapseWhitespace: true,
@@ -75,10 +87,11 @@ module.exports = function (grunt) {
             files: {
                 expand: true,
                 flatten: true,
-                src: ['dist/*.html'],
-                dest: 'dist/'
+                src: ['<%= globalConfig.dest %>/*.html'],
+                dest: '<%= globalConfig.dest %>/'
             }
         },
+        //Hints html
         htmlhint: {
             options: {
                 'tag-pair': true,
@@ -86,67 +99,74 @@ module.exports = function (grunt) {
                 'head-script-disabled': true,
                 'img-alt-require': true
             },
-            src: ['app/*.html']
+            src: ['<%= globalConfig.src %>/*.html']
         },
+        //Less hints and compile
         less: {
             development: {
                 options: {
-                    paths: ['app/styles'],
+                    paths: ['<%= globalConfig.app %>/styles'],
                     //yuicompress: true, // Enable only when in production
                     imports: {
                         less: ['bower_components/lesshat/lesshat.less']
                     }
                 },
                 files: {
-                    'dist/styles/style.css': 'app/styles/*.less'
+                    '<%= globalConfig.dest  %>/styles/style.css': '<%= globalConfig.src %>/styles/*.less'
                 }
             }
         },
+        //Hints JS files
         jshint: {
             options: {
                 jshintrc: '.jshintrc'
             },
             all: [
                 'Gruntfile.js',
-                'app/scripts/{,*/}*.js',
-                'app/scripts/libs/*'
+                '<%= globalConfig.src %>/scripts/{,*/}*.js',
+                '<%= globalConfig.src %>/scripts/libs/*'
             ]
         },
+        //Hints coffeescript files
         coffeelint: {
-            app: ['app/scripts/*.coffee', 'app/scripts/libs/*.coffee'],
+            app: ['<%= globalConfig.src %>/scripts/*.coffee', '<%= globalConfig.src %>/scripts/libs/*.coffee'],
             options: {
                 indentation: { level: 'error', value: 4 }
             },
         },
+        //Compile coffeescript files
         coffee: {
             compile: {
                 files: {
-                    'dist/scripts/script.js': ['app/scripts/*.coffee', 'app/scripts/libs/*.coffee'] // compile and concat into single file
+                    '<%= globalConfig.dest %>/scripts/script.js': ['<%= globalConfig.src %>/scripts/*.coffee', '<%= globalConfig.src %>/scripts/libs/*.coffee'] // compile and concat into single file
                 }
             },
         },
+        //Uglifys compiled JS
         uglify: {
             dist: {
                 files: {
-                    'dist/scripts/app.min.js': ['dist/scripts/script.js']
+                    '<%= globalConfig.dest %>/scripts/<%= globalConfig.src %>.min.js': ['<%= globalConfig.dest %>/scripts/script.js']
                 }
             }
         },
+        //Connects the server
         connect: {
             server: {
                 options: {
                     port: 9001,
-                    base: 'dist'
+                    base: '<%= globalConfig.dest %>'
                 }
             }
         },
+        //Watch directories for changes
         watch: {
             gruntfile: {
                 files: 'Gruntfile.js',
                 tasks: ['jshint:all']
             },
             html: {
-                files: 'app/*.html',
+                files: '<%= globalConfig.src %>/*.html',
                 tasks: ['htmlhint', 'prettify'],
                 options: {
                     livereload: true,
@@ -160,7 +180,7 @@ module.exports = function (grunt) {
                 }
             },
             coffee: {
-                files: ['app/scripts/{,*/}*.coffee'],
+                files: ['<%= globalConfig.src %>/scripts/{,*/}*.coffee'],
                 tasks: [
                     'coffeelint',
                     'coffee:compile',
