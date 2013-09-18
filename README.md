@@ -35,7 +35,7 @@ DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 * KHelpers - _Kaleidos LESS Helpers_
 * RequireJS
 * jQuery
-* CoffesScript
+* CoffeeScript
 * Underscore
 * BackboneJs
 
