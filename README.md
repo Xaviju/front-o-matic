@@ -1,8 +1,8 @@
 # generator-front-o-matic
 
-A generator for [Yeoman](http://yeoman.io). Based on *Kaleidos* front-end structure and workflow.
-Current version **alpha 0.0.3**
-Update: Still in Alpha but working and have a test server already!
+* A generator for [Yeoman](http://yeoman.io). Based on *Kaleidos* front-end structure and workflow.
+* Current version **alpha 0.0.3**
+* Update: Still in Alpha (but suitable for developement!) 
 
 Installation
 --------------
@@ -32,7 +32,7 @@ DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 * HTML5Shiv
 * LESS
 * LESSHat
-* KHelpers - _Less Kaleidos Helpers_
+* KHelpers - _Kaleidos LESS Helpers_
 * RequireJS
 * jQuery
 * CoffesScript
