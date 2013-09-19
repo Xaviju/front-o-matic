@@ -1,18 +1,23 @@
 'use strict';
 
 module.exports = function (grunt) {
+    
+    // show elapsed time at the end
+    require('time-grunt')(grunt);
+
+    // configurable paths
+    // Src > input directory
+    // Dest > output directory
+    var yeomanConfig = {
+        src: 'app',
+        dest: 'dist'
+    };
 
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.initConfig({
-        //Global directory configuration
-        // Src > input directory
-        // Dest > output directory
-        globalConfig: {
-            src: 'app',
-            dest: 'dist'
-        },
+        yeoman: yeomanConfig,
         //Cleans output directory
         clean: {
             dist: {
@@ -20,8 +25,8 @@ module.exports = function (grunt) {
                     dot: true,
                     src: [
                         '.tmp',
-                        '<%= globalConfig.dest %>/*',
-                        '<%= globalConfig.dest %>/.git*'
+                        '<%= yeoman.dest %>/*',
+                        '<%= yeoman.dest %>/.git*'
                     ]
                 }]
             },
@@ -33,8 +38,8 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: '<%= globalConfig.src %>',
-                    dest: '<%= globalConfig.dest %>',
+                    cwd: '<%= yeoman.src %>',
+                    dest: '<%= yeoman.dest %>',
                     src: [
                         '*.{ico,txt}',
                         '.htaccess',
@@ -46,7 +51,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: 'bower_components/',
                     src: '{,*/}*.js',
-                    dest: '<%= globalConfig.dest %>/scripts/libs',
+                    dest: '<%= yeoman.dest %>/scripts/libs',
                     flatten: true,
                     filter: 'isFile'
                 }]
@@ -57,9 +62,9 @@ module.exports = function (grunt) {
             dynamic: {
                 files: [{
                     expand: true,
-                    cwd: '<%= globalConfig.src %>',
+                    cwd: '<%= yeoman.src %>',
                     src: ['**/*.{png,jpg,gif}'],
-                    dest: '<%= globalConfig.dest %>/images/'
+                    dest: '<%= yeoman.dest %>/images/'
                 }]
             }
         },
@@ -70,10 +75,10 @@ module.exports = function (grunt) {
             },
             all: {
                 expand: true,
-                cwd: '<%= globalConfig.src %>',
+                cwd: '<%= yeoman.src %>',
                 ext: '.html',
                 src: ['*.html'],
-                dest: '<%= globalConfig.dest %>/'
+                dest: '<%= yeoman.dest %>/'
             }
         },
         //Minify html and reduce unused data
@@ -87,8 +92,8 @@ module.exports = function (grunt) {
             files: {
                 expand: true,
                 flatten: true,
-                src: ['<%= globalConfig.dest %>/*.html'],
-                dest: '<%= globalConfig.dest %>/'
+                src: ['<%= yeoman.dest %>/*.html'],
+                dest: '<%= yeoman.dest %>/'
             }
         },
         //Hints html
@@ -99,20 +104,20 @@ module.exports = function (grunt) {
                 'head-script-disabled': true,
                 'img-alt-require': true
             },
-            src: ['<%= globalConfig.src %>/*.html']
+            src: ['<%= yeoman.src %>/*.html']
         },
         //Less hints and compile
         less: {
             development: {
                 options: {
-                    paths: ['<%= globalConfig.app %>/styles'],
+                    paths: ['<%= yeoman.app %>/styles'],
                     //yuicompress: true, // Enable only when in production
                     imports: {
                         less: ['bower_components/lesshat/lesshat.less']
                     }
                 },
                 files: {
-                    '<%= globalConfig.dest  %>/styles/style.css': '<%= globalConfig.src %>/styles/*.less'
+                    '<%= yeoman.dest  %>/styles/style.css': '<%= yeoman.src %>/styles/*.less'
                 }
             }
         },
@@ -123,13 +128,13 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
-                '<%= globalConfig.src %>/scripts/{,*/}*.js',
-                '<%= globalConfig.src %>/scripts/libs/*'
+                '<%= yeoman.src %>/scripts/{,*/}*.js',
+                '<%= yeoman.src %>/scripts/libs/*'
             ]
         },
         //Hints coffeescript files
         coffeelint: {
-            app: ['<%= globalConfig.src %>/scripts/*.coffee', '<%= globalConfig.src %>/scripts/libs/*.coffee'],
+            app: ['<%= yeoman.src %>/scripts/*.coffee', '<%= yeoman.src %>/scripts/libs/*.coffee'],
             options: {
                 indentation: { level: 'error', value: 4 }
             },
@@ -138,7 +143,7 @@ module.exports = function (grunt) {
         coffee: {
             compile: {
                 files: {
-                    '<%= globalConfig.dest %>/scripts/script.js': ['<%= globalConfig.src %>/scripts/*.coffee', '<%= globalConfig.src %>/scripts/libs/*.coffee'] // compile and concat into single file
+                    '<%= yeoman.dest %>/scripts/script.js': ['<%= yeoman.src %>/scripts/*.coffee', '<%= yeoman.src %>/scripts/libs/*.coffee'] // compile and concat into single file
                 }
             },
         },
@@ -146,7 +151,7 @@ module.exports = function (grunt) {
         uglify: {
             dist: {
                 files: {
-                    '<%= globalConfig.dest %>/scripts/<%= globalConfig.src %>.min.js': ['<%= globalConfig.dest %>/scripts/script.js']
+                    '<%= yeoman.dest %>/scripts/<%= yeoman.src %>.min.js': ['<%= yeoman.dest %>/scripts/script.js']
                 }
             }
         },
@@ -155,7 +160,7 @@ module.exports = function (grunt) {
             server: {
                 options: {
                     port: 9001,
-                    base: '<%= globalConfig.dest %>'
+                    base: '<%= yeoman.dest %>'
                 }
             }
         },
@@ -166,7 +171,7 @@ module.exports = function (grunt) {
                 tasks: ['jshint:all']
             },
             html: {
-                files: '<%= globalConfig.src %>/*.html',
+                files: '<%= yeoman.src %>/*.html',
                 tasks: ['htmlhint', 'prettify'],
                 options: {
                     livereload: true,
@@ -180,7 +185,7 @@ module.exports = function (grunt) {
                 }
             },
             coffee: {
-                files: ['<%= globalConfig.src %>/scripts/{,*/}*.coffee'],
+                files: ['<%= yeoman.src %>/scripts/{,*/}*.coffee'],
                 tasks: [
                     'coffeelint',
                     'coffee:compile',
