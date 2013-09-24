@@ -1,5 +1,5 @@
 {
-  "name": "false",
+  "name": "<%= appName %>",
   "private": true,
   "devDependencies": {
     "grunt": "~0.4.1",

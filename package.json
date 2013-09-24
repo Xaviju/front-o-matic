@@ -1,7 +1,7 @@
 {
   "name": "generator-front-o-matic",
-  "version": "0.0.0",
-  "description": "A generator for Yeoman",
+  "version": "0.0.1",
+  "description": "Front-o-matic, Front-end, Development, Framework, front, Guerrilla",
   "keywords": [
     "yeoman-generator"
   ],

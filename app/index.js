@@ -23,44 +23,16 @@ FrontOMaticGenerator.prototype.askFor = function askFor() {
     console.log(this.yeoman);
     console.log('Kaleidos Front-o-matic > Simple Front-end Development Framework');
 
-    var prompts = [
-        {
-            type: "input",
-            name: "appName",
-            message: "What will be your app name?",
-            default: "app"
-        },{
-            type: 'checkbox',
-            name: 'features',
-            message: 'What more would you like?',
-            choices: [{
-                name: 'LESS',
-                value: 'less',
-                checked: true
-            }, {
-                name: 'coffeeScript',
-                value: 'coffeeScript',
-                checked: true
-            }, {
-              name: 'RequireJS',
-              value: 'includeRequireJS',
-              checked: true
-            },
-            ]
-        }
-    ];
+    var prompts = [{
+        name: 'appName',
+        message: "What will be your app name?",
+        default: "app"
+    }];
 
     this.prompt(prompts, function (answers) {
-        var features = answers.features;
-
-        function hasFeature(feat) { return features.indexOf(feat) !== -1; }
-
-        // manually deal with the response, get back and store the results.
-        // we change a bit this way of doing to automatically do this in the self.prompt() method.
-        this.appName = hasFeature('appName');
-        this.less = hasFeature('less');
-        this.coffeeScript = hasFeature('coffeeScript');
-        this.requireJS = hasFeature('includeRequireJS');
+        // `props` is an object passed in containing the response values, named in
+        // accordance with the `name` property from your prompt object. So, for us:
+        this.appName = answers.appName;
 
         cb();
     }.bind(this));
