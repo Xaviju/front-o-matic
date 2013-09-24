@@ -79,28 +79,17 @@ FrontOMaticGenerator.prototype.h5bp = function h5bp() {
 };
 
 FrontOMaticGenerator.prototype.lessCss = function lessCss() {
-    if (this.less) {
-        //less
         this.copy('main.less', 'app/styles/main.less');
         this.copy('colors.less', 'app/styles/libs/colors.less');
         this.copy('helpers.less', 'app/styles/libs/helpers.less');
         this.copy('reset.less', 'app/styles/libs/reset.less');
         this.copy('responsive.less', 'app/styles/libs/responsive.less');
         this.copy('typography.less', 'app/styles/libs/typography.less');
-    } else {
-        //CSS
-        this.copy('main.css', 'app/styles/main.css');
-    }
 };
 
 FrontOMaticGenerator.prototype.coffee = function coffee() {
-    if (this.coffeeScript) {
         this.copy('base.coffee', 'app/scripts/base.coffee');
         this.copy('main.coffee', 'app/scripts/main.coffee');
-    } else {
-        this.copy('base.js', 'app/scripts/base.js');
-        this.copy('main.js', 'app/scripts/main.js');
-    }
 };
 
 FrontOMaticGenerator.prototype.appDir = function appDir() {
