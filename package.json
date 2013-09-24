@@ -1,9 +1,9 @@
 {
-  "name": "generator-front-o-matic",
+  "name": "front-o-matic",
   "version": "0.0.1",
-  "description": "Front-o-matic, Front-end, Development, Framework, front, Guerrilla",
+  "description": "A yeoman generator for the front Guerrilla, based on Kaleidos front stack",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator, Front-o-matic, Front-end, Development, Framework, front, Guerrilla"
   ],
   "homepage": "https://github.com/Xaviju/generator-front-o-matic",
   "bugs": "https://github.com/Xaviju/generator-front-o-matic/issues",
